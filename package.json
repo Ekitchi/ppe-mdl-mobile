@@ -1,7 +1,7 @@
 {
-  "name": "ippe-mdl-mobile",
+  "name": "ppe-mdl-mobilee",
   "version": "1.0.0",
-  "description": "ippe-mdl-mobile: An Ionic project",
+  "description": "ppe-mdl-mobilee: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
