@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('mdl.controllers', ['mdl.service'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', function($scope, $ionicModal, $timeout, MdlService) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -25,24 +25,24 @@ angular.module('starter.controllers', [])
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
+    MdlService.login($scope.loginData.username, $scope.loginData.password).then(function success(success){
+      console.log(success);
       $scope.closeLogin();
-    }, 1000);
+    }, function error(err){
+      console.log("error" + err);
+    });
   };
-})
+}])
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+.controller('LiguesCtrl', ['$scope', 'MdlService', function($scope, MdlService) {
+
+        MdlService.getLeagueList().then(function success(success) {
+        console.log(success);
+        $scope.ligues = success.leagues;
+      }, function error(err){
+        console.log(err);
+      });
+}])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
