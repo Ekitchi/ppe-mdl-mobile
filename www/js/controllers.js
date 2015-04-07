@@ -44,5 +44,25 @@ angular.module('mdl.controllers', ['mdl.service'])
       });
 }])
 
+.controller('ProfilCtrl', ['$scope', 'MdlService', function($scope, MdlService) {
+
+        /*MdlService.getLeagueList().then(function success(success) {
+        console.log(success);
+        $scope.ligues = success.leagues;
+      }, function error(err){
+        console.log(err);
+    });*/
+    $scope.profil = {
+        name: "VOORHEES",
+        first_name: "Jason",
+        email: "jason@killer.org",
+        description: "fkrjhgfosqrufqsgyfhliufjhgdjqkjgyhjmodfughsdkyvzjyehrqjfmlc",
+        address_field_1: "Crystal Lake Camp",
+        address_field_2: "13 Lakeroad",
+        zip_code: "13",
+        city: "Crystal Lake"
+    }
+}])
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });
