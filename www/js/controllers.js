@@ -1,6 +1,18 @@
-angular.module('mdl.controllers', ['mdl.service'])
+angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
 
-.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', function($scope, $ionicModal, $timeout, MdlService) {
+.service('cookieService', function(){
+	var logged;
+	return {
+		getLoggedStatus: function(){
+			return logged;
+		},
+		setLoggedStatus: function(status){
+			logged = status;
+		}
+	}
+})
+
+.controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', '$cookieStore', 'cookieService', '$location',  function($scope, $ionicModal, $timeout, MdlService, $cookieStore, cookieService, $location) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -22,15 +34,28 @@ angular.module('mdl.controllers', ['mdl.service'])
   };
 
   // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+  $scope.doLogin = function()
+  {
+  MdlService.login($scope.loginData.username, $scope.loginData.password)
+  .then(function success(success){
+    console.log(success);
+    if (success.code == 200) {
 
-    MdlService.login($scope.loginData.username, $scope.loginData.password).then(function success(success){
-      console.log(success);
-      $scope.closeLogin();
-    }, function error(err){
-      console.log("error" + err);
-    });
+    // Création des cookies
+    $cookieStore.put("Token", success.token.token);
+    $cookieStore.put("User", success.token.user);
+    console.log($cookieStore.get("Token"));
+    console.log($cookieStore.get("User"));
+    $scope.logged = cookieService.setLoggedStatus(true);
+    // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
+    $location.path('/');
+    location.reload();
+    }
+  },
+  function error(error){
+    console.log("ERROR \n");
+    console.log(error);
+  });
   };
 }])
 

@@ -23,12 +23,14 @@ angular.module('mdl.service', [])
 	//Here are your multiple requests that will establish communication with the REST service.
 	return {
     login : function(login, password){
-      return wrapped$httpPromise({
+      return wrapped$httpPromise(
+				{
         method: 'GET',
         headers: {'Content-Type': "application/x-www-form-urlencoded"},
         url: symfonyUrl+'/user/'+login+'/'+password
       });
     },
+
 	getLeagueList: function(){
 			return wrapped$httpPromise({
 				method: 'GET',
