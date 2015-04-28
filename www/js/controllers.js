@@ -69,5 +69,22 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       });
 }])
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+.controller('LigueCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService) {
+          var idLeague = $stateParams.ligueId;
+
+          console.log($stateParams);
+
+          MdlService.getLeague(idLeague).then( function success(success) {
+            console.log(success);
+      			$scope.leagueName = success.league.name;
+      			$scope.leaguePresident = success.league.president.name;
+      			$scope.leagueEmail = success.league.email;
+      			$scope.leaguePhoneNumber = success.league.phone_number;
+      			$scope.leagueDescription = success.league.description;
+
+      		},function error(err){
+      			console.log(error);
+      		});
+
+
+}]);

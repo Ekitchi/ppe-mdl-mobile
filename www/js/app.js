@@ -67,11 +67,11 @@ angular.module('mdl', ['ionic', 'mdl.controllers', 'mdl.service'])
     })
 
   .state('app.single', {
-    url: "/playlists/:playlistId",
+    url: "/ligue/:ligueId",
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/ligue.html",
+        controller: 'LigueCtrl'
       }
     }
   });
