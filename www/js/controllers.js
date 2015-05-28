@@ -24,21 +24,15 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {scope: $scope})
     .then(function(modal) 
-    {
-      $scope.modal = modal;
-    });
+      {$scope.modal = modal;});
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() 
-  {
-    $scope.modal.hide();
-  };
+    {$scope.modal.hide();};
 
   // Open the login modal
   $scope.login = function() 
-  {
-    $scope.modal.show();
-  };
+    {$scope.modal.show();};
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function()
@@ -50,16 +44,16 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       if (success.code == 200) 
       {
       // Création des cookies
-      $cookieStore.put("Token", success.token.token);
-      $cookieStore.put("User", success.token.user);
+        $cookieStore.put("Token", success.token.token);
+        $cookieStore.put("User", success.token.user);
 
-      console.log($cookieStore.get("Token"));
-      console.log($cookieStore.get("User"));
+        console.log($cookieStore.get("Token"));
+        console.log($cookieStore.get("User"));
 
-      $scope.logged = cookieService.setLoggedStatus(true);
-      // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
-      $location.path('/');
-      location.reload();
+        $scope.logged = cookieService.setLoggedStatus(true);
+        // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
+        $location.path('/');
+        location.reload();
       }
     },
 
@@ -80,9 +74,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   },
 
   function error(err)
-  {
-    console.log(err);
-  });
+    {console.log(err);});
 }]) // .controller END
 
 .controller('ProfilCtrl', ['$scope', '$stateParams', 'MdlService', '$cookieStore', function($scope, $stateParams, MdlService, $cookieStore) 
@@ -92,19 +84,17 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   console.log($stateParams);
   if(idProfil == "self")
     {$scope.profil = $cookieStore.get("User");}
+
   else 
   {
     MdlService.getUser(idProfil).then( function success(success) 
     {
       console.log(success);
-        $scope.profil = success.token.user;
+      $scope.profil = success.token.user;
     },
 
     function error(err)
-    {
-      console.log(error);
-    });
-  }
+      {console.log(err);});}
 }]) // .controller END
 
 .controller('LigueCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService) 
@@ -123,7 +113,6 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   }
 
   ,function error(err)
-  {
-    console.log(error);
-  }); // .controller END
-}]);
+    {console.log(error);}
+  ); //getLeague END
+}]);// .controller END
