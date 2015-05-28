@@ -56,7 +56,7 @@ angular.module('mdl', ['ionic', 'mdl.controllers', 'mdl.service'])
       }
     }
   })
-    .state('app.ligues', {
+  .state('app.ligues', {
       url: "/ligues",
       views: {
         'menuContent': {
@@ -65,6 +65,16 @@ angular.module('mdl', ['ionic', 'mdl.controllers', 'mdl.service'])
         }
       }
     })
+  .state('app.profil', {
+    url: "/profil",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/profil.html",
+        controller: 'ProfilCtrl'
+      }
+    }
+  })
+
 
   .state('app.single', {
     url: "/ligue/:ligueId",
