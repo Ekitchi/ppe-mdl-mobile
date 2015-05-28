@@ -66,7 +66,7 @@ angular.module('mdl', ['ionic', 'mdl.controllers', 'mdl.service'])
       }
     })
   .state('app.profil', {
-    url: "/profil",
+    url: "/profil/:profilId",
     views: {
       'menuContent': {
         templateUrl: "templates/profil.html",

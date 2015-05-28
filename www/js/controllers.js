@@ -69,24 +69,12 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       });
 }])
 
-.controller('ProfilCtrl', ['$scope', 'MdlService', function($scope, MdlService) {
+.controller('ProfilCtrl', ['$scope', '$stateParams', 'MdlService', '$cookieStore', function($scope, $stateParams, MdlService, $cookieStore) {
+    var idProfil = $stateParams.profilId;
 
-        /*MdlService.getLeagueList().then(function success(success) {
-        console.log(success);
-        $scope.ligues = success.leagues;
-      }, function error(err){
-        console.log(err);
-    });*/
-    $scope.profil = {
-        name: "VOORHEES",
-        first_name: "Jason",
-        email: "jason@killer.org",
-        description: "fkrjhgfosqrufqsgyfhliufjhgdjqkjgyhjmodfughsdkyvzjyehrqjfmlc",
-        address_field_1: "Crystal Lake Camp",
-        address_field_2: "13 Lakeroad",
-        zip_code: "13",
-        city: "Crystal Lake"
-    }
+    console.log($stateParams);
+    if(idProfil == "self")
+        $scope.profil = $cookieStore.get("User");
 }])
 
 .controller('LigueCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService) {
