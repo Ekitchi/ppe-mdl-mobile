@@ -31,7 +31,23 @@ angular.module('mdl.service', [])
       });
     },
 
+    getUser : function(user_id){
+      return wrapped$httpPromise(
+                {
+        method: 'GET',
+        headers: {'Content-Type': "application/x-www-form-urlencoded"},
+        url: symfonyUrl+'/user/'+user_id;
+      });
+    },
+
     getLeagueList: function(){
+        return wrapped$httpPromise({
+            method: 'GET',
+            headers: {'Content-Type': "application/x-www-form-urlencoded"},
+            url: symfonyUrl+'/leagues/';
+        });
+    },
+
     getLeague: function(league_id){
         return wrapped$httpPromise({
             method:'GET',

@@ -1,15 +1,15 @@
 angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
 
 .service('cookieService', function(){
-	var logged;
-	return {
-		getLoggedStatus: function(){
-			return logged;
-		},
-		setLoggedStatus: function(status){
-			logged = status;
-		}
-	}
+    var logged;
+    return {
+        getLoggedStatus: function(){
+            return logged;
+        },
+        setLoggedStatus: function(status){
+            logged = status;
+        }
+    }
 })
 
 .controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', '$cookieStore', 'cookieService', '$location',  function($scope, $ionicModal, $timeout, MdlService, $cookieStore, cookieService, $location) {
@@ -75,6 +75,15 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
     console.log($stateParams);
     if(idProfil == "self")
         $scope.profil = $cookieStore.get("User");
+    else {
+        MdlService.getUser(idProfil).then( function success(success) {
+            console.log(success);
+            $scope.profil = success.token.user;
+        },
+        function error(err){
+            console.log(error);
+        });
+    }
 }])
 
 .controller('LigueCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService) {
@@ -84,15 +93,15 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
 
           MdlService.getLeague(idLeague).then( function success(success) {
             console.log(success);
-      			$scope.leagueName = success.league.name;
-      			$scope.leaguePresident = success.league.president.name;
-      			$scope.leagueEmail = success.league.email;
-      			$scope.leaguePhoneNumber = success.league.phone_number;
-      			$scope.leagueDescription = success.league.description;
+                  $scope.leagueName = success.league.name;
+                  $scope.leaguePresident = success.league.president.name;
+                  $scope.leagueEmail = success.league.email;
+                  $scope.leaguePhoneNumber = success.league.phone_number;
+                  $scope.leagueDescription = success.league.description;
 
-      		},function error(err){
-      			console.log(error);
-      		});
+              },function error(err){
+                  console.log(error);
+              });
 
 
 }]);
