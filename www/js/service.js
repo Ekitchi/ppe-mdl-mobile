@@ -15,7 +15,9 @@ angular.module('mdl.service', [])
             {
                 deferred.resolve(body);
             }).
-            error(function (data) {
+            
+            error(function (data) 
+            {
                 deferred.reject(data);
             });
 
@@ -24,39 +26,44 @@ angular.module('mdl.service', [])
 
     //Here are your multiple requests that will establish communication with the REST service.
     return {
-        login : function(login, password){
-          return wrapped$httpPromise(
-                    {
-            method: 'GET',
-            headers: {'Content-Type': "application/x-www-form-urlencoded"},
-            url: symfonyUrl+'/user/'+login+'/'+password
-          });
+        login : function(login, password)
+        {
+            return wrapped$httpPromise(
+            {
+                method: 'GET',
+                headers: {'Content-Type': "application/x-www-form-urlencoded"},
+                url: symfonyUrl+'/user/'+login+'/'+password
+            });
         },
     
-        getUser : function(user_id){
-          return wrapped$httpPromise(
-                    {
-            method: 'GET',
-            headers: {'Content-Type': "application/x-www-form-urlencoded"},
-            url: symfonyUrl+'/user/'+user_id;
-          });
+        getUser : function(user_id)
+        {
+            return wrapped$httpPromise(
+            {
+                method: 'GET',
+                headers: {'Content-Type': "application/x-www-form-urlencoded"},
+                url: symfonyUrl+'/user/'+user_id;
+            });
         },
     
-        getLeagueList: function(){
-            return wrapped$httpPromise({
+        getLeagueList: function()
+        {
+            return wrapped$httpPromise(
+            {
                 method: 'GET',
                 headers: {'Content-Type': "application/x-www-form-urlencoded"},
                 url: symfonyUrl+'/leagues/';
             });
         },
     
-        getLeague: function(league_id){
-            return wrapped$httpPromise({
+        getLeague: function(league_id)
+        {
+            return wrapped$httpPromise(
+            {
                 method:'GET',
                 headers: {'Content-Type': "application/x-www-form-urlencoded"},
                 url: symfonyUrl+'/league/'+league_id
             });
         }
     } // fin du return
-}
-]);
+}]);

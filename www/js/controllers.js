@@ -57,11 +57,8 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       }
     },
 
-    function error(error)
-    {
-      console.log("ERROR \n");
-      console.log(error);
-    });
+    function error(err)
+      {console.log(err);});
   };
 }])  // .controller END
 
@@ -113,6 +110,6 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   }
 
   ,function error(err)
-    {console.log(error);}
+    {console.log(err);}
   ); //getLeague END
 }]);// .controller END
