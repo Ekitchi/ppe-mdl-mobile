@@ -1,21 +1,15 @@
 angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
-.service('cookieService', function()
-{
-  var logged;
-  return 
-  {
-    getLoggedStatus: function getLoggedStatus()
-    {
-    return logged;
-    };
-
-    setLoggedStatus: function setLoggedStatus(status)
-    {
-      logged = status;
-    }
-  }
-})
-
+    .service('cookieService', function(){
+      var logged;
+      return {
+        getLoggedStatus: function(){
+          return logged;
+        },
+        setLoggedStatus: function(status){
+          logged = status;
+        }
+      }
+    })
 .controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', '$cookieStore', 'cookieService', '$location',  function($scope, $ionicModal, $timeout, MdlService, $cookieStore, cookieService, $location) 
 {
   // Form data for the login modal
@@ -96,17 +90,14 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
 
 .controller('LigueCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService) 
 {
+  $scope.chosenLigue;
   var idLeague = $stateParams.ligueId;
   console.log($stateParams);
 
   MdlService.getLeague(idLeague).then( function success(success) 
   {
-    console.log(success);
-    $scope.leagueName = success.league.name;
-    $scope.leaguePresident = success.league.president.name;
-    $scope.leagueEmail = success.league.email;
-    $scope.leaguePhoneNumber = success.league.phone_number;
-    $scope.leagueDescription = success.league.description;
+    $scope.chosenLigue = success;
+
   }
 
   ,function error(err)
