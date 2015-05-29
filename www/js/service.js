@@ -42,7 +42,7 @@ angular.module('mdl.service', [])
             {
                 method: 'GET',
                 headers: {'Content-Type': "application/x-www-form-urlencoded"},
-                url: symfonyUrl+'/user/'+user_id;
+                url: symfonyUrl+'/user/'+user_id
             });
         },
     
@@ -52,7 +52,7 @@ angular.module('mdl.service', [])
             {
                 method: 'GET',
                 headers: {'Content-Type': "application/x-www-form-urlencoded"},
-                url: symfonyUrl+'/leagues/';
+                url: symfonyUrl+'/leagues/'
             });
         },
     

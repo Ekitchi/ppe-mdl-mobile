@@ -4,12 +4,12 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   var logged;
   return 
   {
-    getLoggedStatus: function()
+    getLoggedStatus: function getLoggedStatus()
     {
     return logged;
-    },
+    };
 
-    setLoggedStatus: function(status)
+    setLoggedStatus: function setLoggedStatus(status)
     {
       logged = status;
     }
