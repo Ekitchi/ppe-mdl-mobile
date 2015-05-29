@@ -28,6 +28,19 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
   $scope.login = function() 
     {$scope.modal.show();};
 
+  $scope.logout = function(){
+    $cookieStore.remove("Token");
+    $cookieStore.remove("User");
+  }
+
+  $scope.isLogged = function(){
+    if(angular.isDefined($cookieStore.get("User"))){
+      return true;
+    }
+    else return false;
+  }
+
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function()
   {
@@ -45,6 +58,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
         console.log($cookieStore.get("User"));
 
         $scope.logged = cookieService.setLoggedStatus(true);
+
         // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
         $location.path('/');
         location.reload();

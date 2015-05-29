@@ -18,8 +18,8 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item nav-clear menu-close ng-click="login()">
-          Login
+        <ion-item nav-clear menu-close ng-show="!isLogged()" ng-click="login()">
+          Connexion
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/search">
           Search
@@ -30,9 +30,11 @@
         <ion-item nav-clear menu-close href="#/app/ligues">
           Ligues
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/profil/self">
+        <ion-item nav-clear menu-close ng-show="isLogged()" href="#/app/profil/self">
           Profil
         </ion-item>
+        <ion-item nav-clear menu-close ng-show="isLogged()" ng-click="logout()">Déconnexion</ion-item>
+
       </ion-list>
     </ion-content>
   </ion-side-menu>
