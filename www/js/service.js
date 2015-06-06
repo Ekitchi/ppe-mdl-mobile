@@ -48,6 +48,23 @@ angular.module('mdl.service', [])
                         });
                 },
 
+                getEventList: function(){
+                    return wrapped$httpPromise(
+                        {
+                            method: 'GET',
+                        //    headers: {'Content-Type': "application/x-www-form-urlencoded"},
+                            url: symfonyUrl+'/upcoming/'
+                        });
+                },
+                getEvent: function(event_id)
+                {
+                    return wrapped$httpPromise(
+                        {
+                            method:'GET',
+                            headers: {'Content-Type': "application/x-www-form-urlencoded"},
+                            url: symfonyUrl+'/upcoming/'+event_id
+                        });
+                },
                 getLeagueList: function()
                 {
                     return wrapped$httpPromise(
