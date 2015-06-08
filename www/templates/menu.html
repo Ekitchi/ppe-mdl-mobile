@@ -18,21 +18,23 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
+
         <ion-item nav-clear menu-close ng-show="!isLogged()" ng-click="login()">
           Connexion
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
-        </ion-item>
+
+        <ion-item nav-clear menu-close href="#/app/home">
+          Accueil
+        </ion-item>   
+
         <ion-item nav-clear menu-close href="#/app/ligues">
           Ligues
         </ion-item>
+
         <ion-item nav-clear menu-close href="#/app/events">
         Évènements
         </ion-item>
+
         <ion-item nav-clear menu-close ng-show="isLogged()" href="#/app/profil/self">
           Profil
         </ion-item>

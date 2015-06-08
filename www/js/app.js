@@ -34,32 +34,18 @@ angular.module('mdl', ['ionic', 'mdl.controllers', 'mdl.service'])
                 controller: 'AppCtrl'
             })
 
-            .state('app.search',
-            {
-                url: "/search",
-                views:
-                {'menuContent':
-                {templateUrl: "templates/search.html"}
-                }
-            })
 
             .state('app.home',
             {
                 url: "/home",
-                views:
-                {'menuContent':
-                {templateUrl: "templates/home.html"}
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/home.html",
+                        controller: 'HomeCtrl'
+                    }
                 }
             })
 
-            .state('app.browse',
-            {
-                url: "/browse",
-                views:
-                {'menuContent':
-                {templateUrl: "templates/browse.html"}
-                }
-            })
 
             .state('app.ligues',
             {

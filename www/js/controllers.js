@@ -112,6 +112,21 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
             function error(err)
             {console.log(err);});}
     }]) // .controller END
+
+    .controller('HomeCtrl', ['$scope', 'MdlService', function($scope, M2LService) 
+    {
+        M2LService.getHome().then(function success(success) 
+        {
+          console.log(success);
+          $scope.home = success.home;
+        }, 
+
+        function error(err){
+        console.log(err);
+      })}])
+
+
+
     .controller('EventCtrl', ['$scope', '$stateParams', 'MdlService', function($scope, $stateParams, MdlService)
     {
       $scope.chosenEvent;

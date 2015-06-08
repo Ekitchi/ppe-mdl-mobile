@@ -3,9 +3,9 @@ angular.module('mdl.service', [])
         function($http, $q) {
 
             // URL var, to change for dev purposes. Change it when you're pulling from another dev, but specifiy the URL change in the commit.
-            var symfonyUrl = 'http://localhost:8888/PPE1/Symfony/web/app_dev.php' // Localhost de William;
+            //var symfonyUrl = 'http://localhost:8888/PPE1/Symfony/web/app_dev.php' // Localhost de William;
             //var symfonyUrl = 'http://m2l.erwhann-rouge.fr/web/app_dev.php'; //Route du serveur de Guilhem
-            //var symfonyUrl = 'http://localhost/dev/M2L/web/app_dev.php'; //Localhost de Smaïl
+            var symfonyUrl = 'http://localhost/dev/M2L/web/app_dev.php'; //Localhost de Smaïl
 
             // This kinda initiate the whole promise thing. Don't touch it.
             function wrapped$httpPromise(httpCallConfig)
