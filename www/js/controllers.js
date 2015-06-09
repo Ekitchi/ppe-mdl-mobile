@@ -1,5 +1,6 @@
-angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
-    .service('cookieService', function(){
+angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
+    .service('cookieService', function() 
+    {
       var logged;
       return {
         getLoggedStatus: function(){
@@ -10,8 +11,11 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
         }
       }
     })
-    .controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', '$cookieStore', 'cookieService', '$location',  function($scope, $ionicModal, $timeout, MdlService, $cookieStore, cookieService, $location)
+
+    .controller('AppCtrl', ['$scope', '$ionicModal', '$timeout', 'MdlService', '$cookieStore', 'cookieService', '$location', '$state', '$window', function($scope, $ionicModal, $timeout, MdlService, $cookieStore, cookieService, $location, $state, $window)
     {
+
+      $scope.loggedIn;
       // Form data for the login modal
       $scope.loginData = {};
 
@@ -28,54 +32,70 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       $scope.login = function()
       {$scope.modal.show();};
 
-      $scope.logout = function(){
+      $scope.logout = function()
+      {
         $cookieStore.remove("Token");
         $cookieStore.remove("User");
+        $cookieStore.remove("User_id");
+        alert('Vous vous êtes bien déconnecté');
+        $scope.loggedIn = false;
+        $scope.logged = cookieService.setLoggedStatus(false);        
+        $location.path('/');
+        //window.location = "/home";
+        $window.location.reload(true);        
+        //$state.reload();
       }
 
-      $scope.isLogged = function(){
-        if(angular.isDefined($cookieStore.get("User"))){
-          return true;
+        $scope.isLogged = function()
+        {
+          if(angular.isDefined($cookieStore.get("User")))
+            { return true; }
+          return false;
         }
-        else return false;
-      }
-
-
       // Perform the login action when the user submits the login form
       $scope.doLogin = function()
       {
-        MdlService.login($scope.loginData.username,
-            $scope.loginData.password).then(function success(success)
+        MdlService.login($scope.loginData.username, $scope.loginData.password)
+          .then
+          (
+            function success(requestResponse)
             {
-              console.log(success);
-              if (success.code == 200)
+              console.log(requestResponse);
+              if (requestResponse.code == 200)
               {
                 // Création des cookies
-                $cookieStore.put("Token", success.token.token);
-                $cookieStore.put("User", success.token.user);
+                $cookieStore.put("Token", requestResponse.token.token);
+                $cookieStore.put("User", requestResponse.token.user);
+                $cookieStore.put("User_id", requestResponse.token.user.id);
+                $scope.logged = cookieService.setLoggedStatus(true);
+                $scope.loggedIn = true;
+
 
                 console.log($cookieStore.get("Token"));
                 console.log($cookieStore.get("User"));
 
-                $scope.logged = cookieService.setLoggedStatus(true);
-
                 // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
+                alert($scope.isLogged());
+                $scope.closeLogin();
+                $state.reload();
                 $location.path('/');
-                location.reload();
               }
             },
 
             function error(err)
             {console.log(err);});
       };
-    }])  // .controller END
+
+
+    }
+    ])  // .controller END
 
     .controller('LiguesCtrl', ['$scope', 'MdlService', function($scope, MdlService)
     {
-      MdlService.getLeagueList().then(function success(success)
+      MdlService.getLeagueList().then(function success(requestResponse)
           {
-            console.log(success);
-            $scope.ligues = success.leagues;
+            console.log(requestResponse);
+            $scope.ligues = requestResponse.leagues;
           },
 
           function error(err)
@@ -83,10 +103,10 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
     }]) // .controller END
     .controller('EventsCtrl', ['$scope', 'MdlService', function($scope, MdlService)
     {
-      MdlService.getEventList().then(function success(success)
+      MdlService.getEventList().then(function success(requestResponse)
           {
-            console.log(success);
-            $scope.events = success.events;
+            console.log(requestResponse);
+            $scope.events = requestResponse.events;
           },
 
           function error(err)
@@ -95,30 +115,34 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
 
     .controller('ProfilCtrl', ['$scope', '$stateParams', 'MdlService', '$cookieStore', function($scope, $stateParams, MdlService, $cookieStore)
     {
-      var idProfil = $stateParams.profilId;
+      //$scope.profil; 
+      //var idProfil = $cookieStore.get("User_id");
+      var idProfil = $stateParams.profilId
+      console.log(idProfil);
 
-      console.log($stateParams);
-      if(idProfil == "self")
-      {$scope.profil = $cookieStore.get("User");}
+        MdlService.getUser(idProfil)
+        .then
+        ( 
+          function success(requestResponse)
+          {
+            console.log(requestResponse.user);
+            $scope.profil = requestResponse.user;
+            alert("succès affichage user")
+          },
+          function error(err)
+            { console.log(err);
+              alert(idProfil) }
+        );
 
-      else
-      {
-        MdlService.getUser(idProfil).then( function success(success)
-            {
-              console.log(success);
-              $scope.profil = success.token.user;
-            },
-
-            function error(err)
-            {console.log(err);});}
     }]) // .controller END
 
-    .controller('HomeCtrl', ['$scope', 'MdlService', function($scope, M2LService) 
+    .controller('HomeCtrl', ['$scope', 'MdlService','$window', '$state', function($scope, MdlService, $window, $state) 
     {
-        M2LService.getHome().then(function success(success) 
+        MdlService.getHome().then(function success(requestResponse) 
         {
-          console.log(success);
-          $scope.home = success.home;
+          $state.reload();          
+          console.log(requestResponse);
+          $scope.home = requestResponse.home;
         }, 
 
         function error(err){
@@ -133,7 +157,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       var idEvent = $stateParams.eventId;
       console.log($stateParams);
 
-      MdlService.getEvent(idEvent).then( function success(success)
+      MdlService.getEvent(idEvent).then( function success(requestResponse)
           {
             $scope.chosenEvent = success;
 
@@ -149,7 +173,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies'])
       var idLeague = $stateParams.ligueId;
       console.log($stateParams);
 
-      MdlService.getLeague(idLeague).then( function success(success)
+      MdlService.getLeague(idLeague).then( function success(requestResponse)
           {
             $scope.chosenLigue = success;
 

@@ -14,12 +14,12 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Menu</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
 
-        <ion-item nav-clear menu-close ng-show="!isLogged()" ng-click="login()">
+        <ion-item nav-clear menu-close ng-if ="!loggedIn" ng-click="login()">
           Connexion
         </ion-item>
 
@@ -35,10 +35,10 @@
         Évènements
         </ion-item>
 
-        <ion-item nav-clear menu-close ng-show="isLogged()" href="#/app/profil/self">
+        <ion-item nav-clear menu-close ng-if="loggedIn" href="#/app/profil/{{profil.id}}">
           Profil
         </ion-item>
-        <ion-item nav-clear menu-close ng-show="isLogged()" ng-click="logout()">Déconnexion</ion-item>
+        <ion-item nav-clear menu-close ng-if="loggedIn" ng-click="logout()">Déconnexion</ion-item>
 
       </ion-list>
     </ion-content>
