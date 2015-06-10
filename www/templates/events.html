@@ -1,0 +1,9 @@
+<ion-view view-title="Évènements">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="event in events" href="#/app/event/{{event.id}}">
+        {{event.titre}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

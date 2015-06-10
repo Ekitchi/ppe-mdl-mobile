@@ -1,0 +1,16 @@
+<ion-view view-title="Profil">
+  <ion-content>
+    <h1>{{profil.first_name}} {{profil.name}}</h1>
+    <h3 style="font-style: italic;">({{profil.status.name}})</h3>
+
+    <h2>Description </h2>
+    <p>{{profil.description}}</p>
+    <h2>Adresse </h2>
+    <p>{{profil.address_field_1}}
+    {{profil.address_field_2}}
+    {{profil.zip_code}} {{profil.city}}</p>
+    <h2>Coordonnées</h2>
+    <span><b>E-mail : </b></span>{{profil.email}} <br />
+    <span><b>Téléphone : </b></span>{{profil.phone_number}}
+  </ion-content>
+</ion-view>
