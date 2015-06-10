@@ -16,6 +16,8 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
     {
 
       $scope.loggedIn;
+      $scope.profilId;
+
       // Form data for the login modal
       $scope.loginData = {};
 
@@ -41,9 +43,9 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
         $scope.loggedIn = false;
         $scope.logged = cookieService.setLoggedStatus(false);        
         $location.path('/');
-        //window.location = "/home";
+
         $window.location.reload(true);        
-        //$state.reload();
+
       }
 
         $scope.isLogged = function()
@@ -70,6 +72,9 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
                 $scope.logged = cookieService.setLoggedStatus(true);
                 $scope.loggedIn = true;
 
+                $scope.userCookie = $cookieStore.get("User");
+                $scope.profilId = $scope.userCookie.id;
+
 
                 console.log($cookieStore.get("Token"));
                 console.log($cookieStore.get("User"));
@@ -79,12 +84,17 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
                 $scope.closeLogin();
                 $state.reload();
                 $location.path('/');
+
               }
             },
+
+
 
             function error(err)
             {console.log(err);});
       };
+
+
 
 
     }
@@ -116,9 +126,10 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
     .controller('ProfilCtrl', ['$scope', '$stateParams', 'MdlService', '$cookieStore', function($scope, $stateParams, MdlService, $cookieStore)
     {
       //$scope.profil; 
-      //var idProfil = $cookieStore.get("User_id");
-      var idProfil = $stateParams.profilId
-      console.log(idProfil);
+      var idProfil = $scope.profilId;
+
+      //var idProfil = $stateParams.profilId
+      //console.log(idProfil);
 
         MdlService.getUser(idProfil)
         .then
