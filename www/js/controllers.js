@@ -39,7 +39,6 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
         $cookieStore.remove("Token");
         $cookieStore.remove("User");
         $cookieStore.remove("User_id");
-        alert('Vous vous êtes bien déconnecté');
         $scope.loggedIn = false;
         $scope.logged = cookieService.setLoggedStatus(false);        
         $location.path('/');
@@ -80,7 +79,6 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
                 console.log($cookieStore.get("User"));
 
                 // On redirige vers l'accueil et on recharge pour prendre en compte les cookies fraichement créés.
-                alert($scope.isLogged());
                 $scope.closeLogin();
                 $state.reload();
                 $location.path('/');
@@ -138,11 +136,10 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
           {
             console.log(requestResponse.user);
             $scope.profil = requestResponse.user;
-            alert("succès affichage user")
           },
           function error(err)
             { console.log(err);
-              alert(idProfil) }
+              alert("Erreur d'affichage, contactez l'administrateur") }
         );
 
     }]) // .controller END
