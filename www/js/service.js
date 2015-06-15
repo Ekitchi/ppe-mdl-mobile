@@ -6,7 +6,9 @@ angular.module('mdl.service', [])
             //var symfonyUrl = 'http://localhost:8888/PPE1/Symfony/web/app_dev.php' // Localhost de William;
             //var symfonyUrl = 'http://m2l.erwhann-rouge.fr/web/app_dev.php'; //Route du serveur de Guilhem
             //var symfonyUrl = 'http://192.168.1.13/dev/M2L/web/app_dev.php'; //Localhost de Smaïl
-            var symfonyUrl = 'http://172.16.0.51/ppe-m2l-gmp/Symfony/web/app_dev.php'; //route du serveur de l'école
+            var symfonyUrl = 'http://78.244.53.219/dev/M2L/web/app_dev.php'; //Localhost de Smaïl
+
+            //var symfonyUrl = 'http://172.16.0.51/ppe-m2l-gmp/Symfony/web/app_dev.php'; //route du serveur de l'école
 
 
             // This kinda initiate the whole promise thing. Don't touch it.
@@ -75,7 +77,7 @@ angular.module('mdl.service', [])
                         {
                             method:'GET',
                             headers: {'Content-Type': "application/x-www-form-urlencoded"},
-                            url: symfonyUrl+'/upcoming/'+event_id
+                            url: symfonyUrl+'/upcoming/event/'+event_id
                         });
                 },
                 getLeagueList: function()

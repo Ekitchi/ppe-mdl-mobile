@@ -123,11 +123,8 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
 
     .controller('ProfilCtrl', ['$scope', '$stateParams', 'MdlService', '$cookieStore', function($scope, $stateParams, MdlService, $cookieStore)
     {
-      //$scope.profil; 
       var idProfil = $scope.profilId;
 
-      //var idProfil = $stateParams.profilId
-      //console.log(idProfil);
 
         MdlService.getUser(idProfil)
         .then
@@ -167,7 +164,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
 
       MdlService.getEvent(idEvent).then( function success(requestResponse)
           {
-            $scope.chosenEvent = success;
+            $scope.chosenEvent = requestResponse;
 
           }
 
@@ -183,7 +180,7 @@ angular.module('mdl.controllers', ['mdl.service', 'ngCookies', 'ui.router'])
 
       MdlService.getLeague(idLeague).then( function success(requestResponse)
           {
-            $scope.chosenLigue = success;
+            $scope.chosenLigue = requestResponse;
 
           }
 
